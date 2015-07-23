@@ -10,6 +10,12 @@ WhoAreYou is just a micro service covering Whois services on Unix-like system wi
 
 ### Installation
 
+Get last version from Github repo:
+
+```sh
+$ git clone https://github.com/ffr4nz/whoareyou.git
+```
+
 You need some requeriment installed:
 
 ```sh
