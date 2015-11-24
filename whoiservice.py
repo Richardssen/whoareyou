@@ -18,7 +18,7 @@ __author__ = "ffranz"
 __copyright__ = "2015"
 __credits__ = ["ffranz"]
 __license__ = "GPL"
-__version__ = "0.0.1"
+__version__ = "0.0.2"
 __maintainer__ = "ffranz"
 __email__ = "ffranz@sinfonier-project.net"
 __status__ = "Developing"
@@ -38,6 +38,7 @@ def hide_service():
 def about():
 	return 'WHOIS (pronounced as the phrase who is) is a query and response protocol that is widely used for querying databases that store the registered users or assignees of an Internet resource, such as a domain name, an IP address block, or an autonomous system, but is also used for a wider range of other information. The protocol stores and delivers database content in a human-readable format.[1] The WHOIS protocol is documented in RFC 3912.'
 
+@app.route('/whois/domain/<path:domain>')
 @app.route('/whois/<path:domain>')
 def whois_domain(domain):
 	privatedomain = tldextract.extract(domain)
@@ -46,6 +47,17 @@ def whois_domain(domain):
 	except Exception, e:
 		response = dict()
 		response['err'] = str(e) 
+	return jsonify(response)
+
+@app.route('/whois/ip/<path:ip>')
+def whois_ip(ip):
+	try:
+		obj = IPWhois(str(ip))
+		response = obj.lookup_rdap(depth=1)
+		print response
+	except Exception, e:
+		response = dict()
+		response['err'] = str(e)
 	return jsonify(response)
 
 def main():
