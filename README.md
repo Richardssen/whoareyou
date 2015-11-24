@@ -1646,4 +1646,5 @@ Libraies
 ----
 
 [*] IPWhois https://pypi.python.org/pypi/ipwhois
-[*] PythonWhois https://pypi.python.org/pypi/python-whois
+
+[*] PythonWhois https://pypi.python.org/pypi/pythonwhois
