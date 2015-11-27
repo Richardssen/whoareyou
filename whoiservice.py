@@ -25,6 +25,7 @@ __status__ = "Developing"
 
 
 import optparse
+import socket, re, sys
 import pythonwhois
 import tldextract
 from flask import Flask, jsonify
@@ -58,6 +59,39 @@ def whois_ip(ip):
 	except Exception, e:
 		response = dict()
 		response['err'] = str(e)
+	return jsonify(response)
+
+@app.route('/whois/recursive/<path:server>/<path:port>/<path:ip>')
+def whois_recursive(ip, server, port):
+	sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+	sock.connect((server, int(port)))
+	query = "-r -a -c -m -B "+ip
+	sock.send(("%s\r\n" % query).encode("utf-8"))
+	buff = b""
+	while True:
+		data = sock.recv(1024)
+		if len(data) == 0:
+			break
+		buff += data
+	result = buff.decode("utf-8")
+	reslist = list()
+	resdict = dict()
+	for i in result.split("\n"):
+		if not i.startswith('%'):
+			if i.strip() != '':
+				if ( "net6num" in i or "route6" in i ) and bool(resdict):
+					reslist.append(resdict)
+					resdict = dict()
+				key = i.split(':')[0].strip()
+				value = i.split(key+":")[1].strip()
+				line = dict()
+				line[key] = value
+				resdict.update(line)
+	response = dict()
+	response["ipaddress"] = ip
+	response["server"] = server
+	response["port"] = port
+	response["response"] = reslist
 	return jsonify(response)
 
 def main():

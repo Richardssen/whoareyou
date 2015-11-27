@@ -27,7 +27,7 @@ After pip install all libraries service can start using:
 ```sh
 $ python whoiservice.py -p 4343
 ```
-Consume API service using */whois/domain* endpoint
+Consume API service using */whois/domain* endpoint. Get dat from a Domain
 
 **http://whoareyou.server.domain:4343/whois/domain/google.com**
 
@@ -128,7 +128,7 @@ Consume API service using */whois/domain* endpoint
 }
 ```
 
-Consume API service using */whois/ip* endpoint
+Consume API service using */whois/ip* endpoint. Get info from IPs
 
 **http://whoareyou.server.domain:4343/whois/ip/2a00:1728:9:1::5**
 
@@ -1629,6 +1629,83 @@ Consume API service using */whois/ip* endpoint
     },
     "query": "2a00:1728:9:1::5",
     "raw": null
+
+}
+```
+Consume API service using */whois/recursive/<whois_server>/<whois_server_port>/<ipv6_range>* endpoint. Get data from an IPv6 range recursive query.
+
+**http://whoareyou.server.domain:4343/whois/recursive/whois.ripe.net/43/2a02:a48::/32**
+
+```json
+{
+
+    "ipaddress": "2a02:a48::/32",
+    "port": "43",
+    "response": 
+
+[
+
+{
+
+    "admin-c": "LM1397-RIPE",
+    "changed": "lukas@prozeta.cz 20101021",
+    "country": "CZ",
+    "created": "2010-10-21T15:36:02Z",
+    "descr": "ipv6 for Moravanet infrastructure / CPE",
+    "inet6num": "2a02:a48::/36",
+    "last-modified": "2010-10-21T15:36:02Z",
+    "mnt-by": "MNT-AQUA1000",
+    "netname": "MORAVA-NET6",
+    "source": "RIPE",
+    "status": "ALLOCATED-BY-LIR",
+    "tech-c": "LM1397-RIPE"
+
+},
+{
+
+    "admin-c": "LM1397-RIPE",
+    "changed": "lukas@prozeta.cz 20101126",
+    "country": "CZ",
+    "created": "2010-11-26T18:19:58Z",
+    "descr": "WEB4SOFT - IPv6 announce netrange",
+    "inet6num": "2a02:a48:e000::/36",
+    "last-modified": "2010-11-26T18:19:58Z",
+    "mnt-by": "MNT-WEB4SOFT",
+    "netname": "WEB4SOFT-NET6",
+    "source": "RIPE",
+    "status": "ALLOCATED-BY-LIR",
+    "tech-c": "DC1000-RIPE"
+
+},
+{
+
+    "admin-c": "LM1397-RIPE",
+    "changed": "lukas@prozeta.cz 20101021",
+    "country": "CZ",
+    "created": "2010-10-21T15:32:20Z",
+    "descr": "PROZETA - IPv6 announce netrange",
+    "inet6num": "2a02:a48:f000::/36",
+    "last-modified": "2010-10-21T15:32:20Z",
+    "mnt-by": "PROZ-MNT",
+    "netname": "PROZETA-NET6",
+    "source": "RIPE",
+    "status": "ALLOCATED-BY-LIR",
+    "tech-c": "LM1397-RIPE"
+
+},
+
+        {
+            "changed": "lukas@prozeta.cz 20101126",
+            "created": "2010-11-26T18:22:03Z",
+            "descr": "WEB4SOFT-RS-NET6",
+            "last-modified": "2010-11-26T18:22:03Z",
+            "mnt-by": "MNT-WEB4SOFT",
+            "origin": "AS51902",
+            "route6": "2a02:a48:e000::/36",
+            "source": "RIPE"
+        }
+    ],
+    "server": "whois.ripe.net"
 
 }
 ```
